@@ -6,15 +6,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class LineWriter {
+public class LineWriter implements LineSink {
 
 	private BufferedOutputStream os;
-	private LineSource source;
 
 
-	public LineWriter(File dumpFile, LineSource source) {
-		this.source = source;
-		
+	public LineWriter(File dumpFile) {
 		try {
 			os = new BufferedOutputStream(new FileOutputStream(dumpFile));
 		} catch (FileNotFoundException e) {
@@ -23,14 +20,7 @@ public class LineWriter {
 	}
 	
 	
-	public void run() {
-		while (source.hasNext()) {
-			writeLine(source.next());
-		}
-	}
-	
-	
-	private void writeLine(byte[] data) {
+	public void processLine(byte[] data) {
 		try {
 			os.write(data);
 			os.write('\n');
@@ -38,6 +28,11 @@ public class LineWriter {
 		} catch (IOException e) {
 			throw new MigrationException("Unable to write to dump file", e);
 		}
+	}
+	
+	
+	public void complete() {
+		
 	}
 
 

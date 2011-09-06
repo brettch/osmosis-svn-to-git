@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
-public class LineReader implements LineSource {
+public class LineReader {
 
 	private BufferedInputStream is;
 	private byte[] lineBuffer;
@@ -17,9 +17,12 @@ public class LineReader implements LineSource {
 	private int readIndex;
 	private int readMax;
 	private boolean eof;
+	private LineSink sink;
 
 
-	public LineReader(File dumpFile) {
+	public LineReader(File dumpFile, LineSink sink) {
+		this.sink = sink;
+		
 		try {
 			is = new BufferedInputStream(new FileInputStream(dumpFile));
 		} catch (FileNotFoundException e) {
@@ -28,6 +31,14 @@ public class LineReader implements LineSource {
 
 		lineBuffer = new byte[0];
 		readBuffer = new byte[4096];
+	}
+	
+	
+	public void run() {
+		while (hasNext()) {
+			sink.processLine(next());
+		}
+		sink.complete();
 	}
 
 
@@ -46,7 +57,7 @@ public class LineReader implements LineSource {
 	}
 
 
-	public boolean hasNext() {
+	private boolean hasNext() {
 		if (!linePopulated) {
 			lineLength = 0;
 			while (!eof && !linePopulated) {
@@ -89,7 +100,7 @@ public class LineReader implements LineSource {
 	}
 
 
-	public byte[] next() {
+	private byte[] next() {
 		byte[] result;
 
 		if (!hasNext()) {

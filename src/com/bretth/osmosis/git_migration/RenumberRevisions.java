@@ -13,10 +13,10 @@ public class RenumberRevisions {
 		inDumpFile = new File("../osmosis.dmp");
 		outDumpFile = new File("../test.dmp");
 		
-		lineReader = new LineReader(inDumpFile);
-		lineWriter = new LineWriter(outDumpFile, lineReader);
+		lineWriter = new LineWriter(outDumpFile);
+		lineReader = new LineReader(inDumpFile, lineWriter);
 		
-		lineWriter.run();
+		lineReader.run();
 		
 		lineReader.close();
 		lineWriter.close();

@@ -15,7 +15,7 @@ public class RevisionMapper {
 	}
 
 
-	public void addRevision(String repository, int sourceRevision) {
+	public int addRevision(String repository, int sourceRevision) {
 		maxTargetRevision++;
 
 		if (!repositoryMappers.containsKey(repository)) {
@@ -23,6 +23,8 @@ public class RevisionMapper {
 		}
 
 		repositoryMappers.get(repository).addRevision(new MappedRevision(sourceRevision, maxTargetRevision));
+		
+		return maxTargetRevision;
 	}
 
 

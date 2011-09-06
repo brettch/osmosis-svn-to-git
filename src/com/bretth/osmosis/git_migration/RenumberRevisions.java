@@ -7,14 +7,19 @@ public class RenumberRevisions {
 	public static void main(String[] args) {
 		File inDumpFile;
 		File outDumpFile;
-		LineReader lineReader;
+		RevisionMapper revisionMapper;
 		LineWriter lineWriter;
+		RevisionRenumberTask renumberTask;
+		LineReader lineReader;
 		
 		inDumpFile = new File("../osmosis.dmp");
 		outDumpFile = new File("../test.dmp");
 		
+		revisionMapper = new RevisionMapper();
+		
 		lineWriter = new LineWriter(outDumpFile);
-		lineReader = new LineReader(inDumpFile, lineWriter);
+		renumberTask = new RevisionRenumberTask(lineWriter, revisionMapper, "osm");
+		lineReader = new LineReader(inDumpFile, renumberTask);
 		
 		lineReader.run();
 		

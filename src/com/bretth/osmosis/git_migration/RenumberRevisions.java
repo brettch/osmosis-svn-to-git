@@ -14,11 +14,9 @@ public class RenumberRevisions {
 		outDumpFile = new File("../test.dmp");
 		
 		lineReader = new LineReader(inDumpFile);
-		lineWriter = new LineWriter(outDumpFile);
+		lineWriter = new LineWriter(outDumpFile, lineReader);
 		
-		while (lineReader.hasNext()) {
-			lineWriter.writeLine(lineReader.next());
-		}
+		lineWriter.run();
 		
 		lineReader.close();
 		lineWriter.close();

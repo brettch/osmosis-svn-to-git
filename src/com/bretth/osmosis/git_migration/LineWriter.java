@@ -9,9 +9,12 @@ import java.io.IOException;
 public class LineWriter {
 
 	private BufferedOutputStream os;
+	private LineSource source;
 
 
-	public LineWriter(File dumpFile) {
+	public LineWriter(File dumpFile, LineSource source) {
+		this.source = source;
+		
 		try {
 			os = new BufferedOutputStream(new FileOutputStream(dumpFile));
 		} catch (FileNotFoundException e) {
@@ -20,7 +23,14 @@ public class LineWriter {
 	}
 	
 	
-	public void writeLine(byte[] data) {
+	public void run() {
+		while (source.hasNext()) {
+			writeLine(source.next());
+		}
+	}
+	
+	
+	private void writeLine(byte[] data) {
 		try {
 			os.write(data);
 			os.write('\n');

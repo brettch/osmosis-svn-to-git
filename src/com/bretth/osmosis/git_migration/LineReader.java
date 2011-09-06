@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
-public class LineReader {
+public class LineReader implements LineSource {
 
 	private BufferedInputStream is;
 	private byte[] lineBuffer;

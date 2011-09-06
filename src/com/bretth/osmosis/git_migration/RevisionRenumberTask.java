@@ -60,7 +60,7 @@ public class RevisionRenumberTask implements LineSink {
 			int sourceRevision = Integer.parseInt(revisionStr);
 			int targetRevision = revisionMapper.getTargetRevision(repository, sourceRevision);
 
-			sink.processLine(toBytes(revisionPrefix + targetRevision));
+			sink.processLine(toBytes(copyfromRevisionPrefix + targetRevision));
 			
 		} else {
 			sink.processLine(data);

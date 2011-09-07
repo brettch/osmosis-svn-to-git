@@ -1,5 +1,5 @@
 #!/bin/sh
-
+set -x
 check_errs() {
 	if [ "${1}" -ne "0" ]; then
 		echo "ERROR # ${1} : ${2}"
@@ -14,7 +14,7 @@ function init_target_repo() {
 	fi
 	svnadmin create data/target
 	check_errs $? "Can't create target repo"
-	if [ -d target-wc ]; then
+	if [ -d data/target-wc ]; then
 		rm -rf data/target-wc
 		check_errs $? "Can't remove target working copy"
 	fi

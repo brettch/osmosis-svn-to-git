@@ -8,8 +8,8 @@ public class NodeRevisionRemovalTask implements LineSink {
 	private int revision;
 	private RevisionMonitor revisionMonitor;
 	private DataMapper dataMapper;
-	private byte[] nodeLine;
 	private byte[] nodePathPrefix;
+	private byte[] nodeLine;
 	private boolean outputActive;
 	
 	
@@ -19,9 +19,9 @@ public class NodeRevisionRemovalTask implements LineSink {
 		
 		revisionMonitor = new RevisionMonitor();
 		dataMapper = new DataMapper();
-		
-		nodeLine = dataMapper.mergeBytes(dataMapper.toBytes("Node-path: "), dataMapper.toBytes(nodeName));
+
 		nodePathPrefix = dataMapper.toBytes("Node-path: ");
+		nodeLine = dataMapper.mergeBytes(nodePathPrefix, dataMapper.toBytes(nodeName));
 		
 		outputActive = true;
 	}

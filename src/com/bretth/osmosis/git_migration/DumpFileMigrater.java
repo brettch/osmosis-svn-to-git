@@ -3,7 +3,7 @@ package com.bretth.osmosis.git_migration;
 import java.io.File;
 
 
-public class RenumberRevisions {
+public class DumpFileMigrater {
 	
 	private static LineWriter createTarget(String fileName) {
 		return new LineWriter(new File(fileName));
@@ -48,6 +48,8 @@ public class RenumberRevisions {
 		sink = createTarget("../5-osm.fixed.dmp");
 		sink = new RevisionRenumberTask(sink, revisionMapper, "osm");
 		sink = new RenameNodePathsTask(sink, "applications/utils/osmosis/", "");
+		sink = new SetCopyfromNodeTask(12415, "applications/utils/osmosis/tags/0.29", "trunk", sink);
+		sink = new SetCopyfromNodeTask(12416, "applications/utils/osmosis/tags/0.28", "trunk", sink);
 		processFile("../5-osm.dmp", sink);
 	}
 }

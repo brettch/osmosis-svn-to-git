@@ -51,12 +51,23 @@ public class DataMapper {
 	}
 	
 	
-	public byte[] mergeBytes(byte[] data1, byte[] data2) {
+	public byte[] mergeBytes(byte[]... datas) {
+		int length;
+		int offset;
 		byte[] result;
 		
-		result = new byte[data1.length + data2.length];
-		System.arraycopy(data1, 0, result, 0, data1.length);
-		System.arraycopy(data2, 0, result, data1.length, data2.length);
+		length = 0;
+		for (byte[] data : datas) {
+			length += data.length;
+		}
+		
+		result = new byte[length];
+
+		offset = 0;
+		for (byte[] data : datas) {
+			System.arraycopy(data, 0, result, offset, data.length);
+			offset += data.length;
+		}
 		
 		return result;
 	}

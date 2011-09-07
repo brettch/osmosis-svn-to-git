@@ -27,6 +27,7 @@ public class RenumberRevisions {
 		sink = createTarget("../1-bh.fixed.dmp");
 		sink = new RevisionRenumberTask(sink, revisionMapper, "bh");
 		sink = new RenameNodePathsTask(sink, "conduit", "trunk");
+		sink = new NodeRevisionRemovalTask(417, "conduit", sink);
 		processFile("../1-bh.dmp", sink);
 
 		sink = createTarget("../2-bh.fixed.dmp");

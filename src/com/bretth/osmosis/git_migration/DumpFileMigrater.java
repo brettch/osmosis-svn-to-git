@@ -89,5 +89,7 @@ public class DumpFileMigrater {
 		sink = new SetCopyfromNodeTask(12415, "applications/utils/osmosis/tags/0.29", "trunk", sink);
 		sink = new SetCopyfromNodeTask(12416, "applications/utils/osmosis/tags/0.28", "trunk", sink);
 		processFile("data/5-osm.dmp", sink);
+		
+		execute("./load_repository.sh");
 	}
 }

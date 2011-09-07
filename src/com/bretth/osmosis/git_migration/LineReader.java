@@ -35,10 +35,15 @@ public class LineReader {
 	
 	
 	public void run() {
-		while (hasNext()) {
-			sink.processLine(next());
+		try {
+			while (hasNext()) {
+				sink.processLine(next());
+			}
+			sink.complete();
+		} finally {
+			close();
+			sink.close();
 		}
-		sink.complete();
 	}
 
 
@@ -115,7 +120,7 @@ public class LineReader {
 	}
 
 
-	public void close() {
+	private void close() {
 		try {
 			is.close();
 		} catch (IOException e) {

@@ -5,4 +5,7 @@ public interface LineSink {
 
 
 	void complete();
+	
+	
+	void close();
 }

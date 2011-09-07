@@ -29,7 +29,7 @@ function init_target_repo() {
 	mkdir data/target-wc/branches
 	svn add --depth infinity data/target-wc/*
 	check_errs $? "Can't add new directories in working copy"
-	svn commit data/target-wc -m "GIT Migration.  Created SVN migration repository structure."
+	svn commit data/target-wc -m "Fabricated revision.  Created SVN migration repository structure."
 	check_errs $? "Can't commit target changes"
 	# Manipulate the timestamp of initial checkin to match the first osmosis commit.
 	svn propset -r 1 --revprop "svn:date" "2007-04-04T12:58:38.510894Z" file://`pwd`/data/target

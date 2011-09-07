@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -x
-
 check_errs() {
 	if [ "${1}" -ne "0" ]; then
 		echo "ERROR # ${1} : ${2}"

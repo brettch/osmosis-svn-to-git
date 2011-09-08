@@ -103,6 +103,9 @@ public class DumpFileMigrater {
 		System.out.println("Loading the dumps into a new target repository.");
 		execute("./load_repository.sh");
 		
+		System.out.println("Migrating the repository to GIT.");
+		execute("./migrate_to_git.sh");
+		
 		System.out.println("Migration successful.");
 	}
 }

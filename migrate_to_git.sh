@@ -4,7 +4,7 @@ check_errs() {
 	if [ "${1}" -ne "0" ]; then
 		echo "ERROR # ${1} : ${2}"
 		exit ${1}
-    fi
+	fi
 }
 
 pushd .
@@ -43,8 +43,11 @@ if [ -d target.git ]; then
 	rm -rf target.git
 fi
 git clone svn.git target.git
+check_errs $? "Unable to create clean clone"
 
 cd target.git
+git remote rm origin
+check_errs $? "Unable to remove origin"
 
 popd
 

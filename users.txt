@@ -1,0 +1,24 @@
+achmyr = Alexander Chmyr <achmyr@cloudmade.com>
+brett = Brett Henderson <brett@bretth.com>
+bretth = Brett Henderson <brett@bretth.com>
+crosby = Scott Crosby <scott@sacrosby.com>
+fma = Friedrich Maier <fr.maier@gmx.at>
+frederik = Frederik Ramm <frederik@remote.org>
+gabriel = Gabriel Ebner <ge@gabrielebner.at>
+glebius = Gleb Smirnoff <glebius@glebius.int.ru>
+hakan = Hakan Tandogan <gurkensalat.com>
+harrywood = Harry Wood <harry@onlineanimals.co.uk>
+ipodolsk = Igor Podolskiy <igor.podolskiy@vwi-stuttgart.de>
+jochen = Jochen Topf <jochen@remote.org>
+joerg = Joerg Ostertag <openstreetmap@ostertag.name>
+marcuswolschon = Marcus <Wolschon Marcus@wolschon.biz>
+mazdermind = Peter Körner <osm-lists@mazdermind.de>
+newmka = Karl Newman <siliconfiend@gmail.com>
+ojw = Oliver White <streetmap@blibbleblobble.co.uk>
+pastor = Anton Popov <apopov@cogniance.com>
+randomjunk = Dave Stubbs <osm.list@randomjunk.co.uk>
+retsam = Christoph Wagner <freemaps.osm@googlemail.com>
+stefanb = Stefan Baebler <stefan.baebler@gmail.com>
+stephankn = Stephan Knauss <osm@stephans-server.de>
+yellowbkpk = Ian Dees <ian.dees@gmail.com>
+

@@ -67,6 +67,7 @@ public class DumpFileMigrater {
 		sink = createTarget("data/1-bh.fixed.dmp");
 		sink = new RevisionRenumberTask(sink, revisionMapper, "bh");
 		sink = new RenameNodePathsTask(sink, "conduit", "trunk");
+		// Remove creation of conduit project directory only but leave all other nodes in the revision.
 		sink = new NodeRevisionRemovalTask(417, "conduit", sink);
 		processFile("data/1-bh.dmp", sink);
 
@@ -86,12 +87,15 @@ public class DumpFileMigrater {
 		sink = createTarget("data/4-osm.fixed.dmp");
 		sink = new RevisionRenumberTask(sink, revisionMapper, "osm");
 		sink = new RenameNodePathsTask(sink, "applications/utils/osmosis", "trunk");
+		// Remove empty revision.
+		sink = new RevisionRemovalTask(11462, sink);
 		processFile("data/4-osm.dmp", sink);
 
 		System.out.println("Fixing dump 5.");
 		sink = createTarget("data/5-osm.fixed.dmp");
 		sink = new RevisionRenumberTask(sink, revisionMapper, "osm");
 		sink = new RenameNodePathsTask(sink, "applications/utils/osmosis/", "");
+		// Fix path for copy from revisions prior to the trunk/tags/branches re-org.
 		sink = new SetCopyfromNodeTask(12415, "applications/utils/osmosis/tags/0.29", "trunk", sink);
 		sink = new SetCopyfromNodeTask(12416, "applications/utils/osmosis/tags/0.28", "trunk", sink);
 		processFile("data/5-osm.dmp", sink);

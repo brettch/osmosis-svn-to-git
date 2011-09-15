@@ -5,6 +5,7 @@ echo "${USERS_FILE}"
 
 cd data
 
+if false; then
 rm -rf *.git
 
 # Retrieve the conduit part of the repo which existed up to revision 471
@@ -27,4 +28,15 @@ cd bhstdlayout.git
 git svn init -s file://`pwd`/../bhmain-sync/osmosis
 git svn fetch -r476:HEAD -A "${USERS_FILE}"
 cd ..
+
+fi
+
+# Create a target repository and add remotes to the other repos.
+rm -rf target.git
+mkdir target.git
+cd target.git
+git init
+git remote add conduit ../conduit.git
+git remote add bhsimple ../bhsimple.git
+git remote add bhstdlayout ../bhstdlayout.git
 

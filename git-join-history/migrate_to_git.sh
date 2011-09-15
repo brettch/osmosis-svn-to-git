@@ -21,3 +21,10 @@ git svn init file://`pwd`/../bhmain-sync/osmosis
 git svn fetch -r473:474 -A "${USERS_FILE}"
 cd ..
 
+# Retrieve the osmosis part of the repo which existed with trunk/tags/branches from revisions 476 to HEAD, and name it "bhstdlayout"
+mkdir bhstdlayout.git
+cd bhstdlayout.git
+git svn init -s file://`pwd`/../bhmain-sync/osmosis
+git svn fetch -r476:HEAD -A "${USERS_FILE}"
+cd ..
+

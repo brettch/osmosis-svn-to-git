@@ -1,0 +1,14 @@
+
+**** History of Osmosis source ****
+
+https://www.bretth.com/repos/main/conduit
+417 - Initial import
+
+https://www.bretth.com/repos/main/osmosis
+472 - Rename of root directory to osmosis
+475 - Re-organisation into trunk/tags/branches
+
+http://svn.openstreetmap.org/applications/utils/osmosis
+4742 - Initial import into new repo without history from the lastest bh.com source
+12411 - Re-organisation into trunk/tags/branches
+

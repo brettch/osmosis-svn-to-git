@@ -1,4 +1,4 @@
-This project contains scripts used for migrating the Osmosis source code from Subversion into a GIT repository.
+This project contains scripts used for migrating Osmosis (http://wiki.openstreetmap.org/wiki/Osmosis) source code from Subversion into a GIT repository.
 
 The Subversion history is split across the following two repositories:
 * http://svn.openstreetmap.org/applications/utils/osmosis/

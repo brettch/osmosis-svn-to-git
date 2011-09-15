@@ -1,0 +1,15 @@
+This project contains scripts used for migrating the Osmosis source code from Subversion into a GIT repository.
+
+The Subversion history is split across the following two repositories:
+* http://svn.openstreetmap.org/applications/utils/osmosis/
+* https://www.bretth.com/repos/main/osmosis/
+
+To run the application perform the following steps:
+* Compile the application
+mvn clean package
+* Run the application
+java -jar target/osmosis-svn-to-git*.jar
+* Kick back and wait a very long time.
+
+Note that the above process generates a local replica of both the OSM (Open Street Map) and bretth.com/repos/main repositories.  The process can be sped up tremendously if you already have a local replica of these repositories by copying your replica(s) into the data sub-directory as osm-sync and bhmain-sync respectively.
+

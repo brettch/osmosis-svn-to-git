@@ -4,12 +4,27 @@ The Subversion history is split across the following two repositories:
 * http://svn.openstreetmap.org/applications/utils/osmosis/
 * https://www.bretth.com/repos/main/osmosis/
 
+There are two separate approaches implemented in this project.
+
+**** Fix SVN History Then Migrate (fix-svn-history) ****
 To run the application perform the following steps:
+* Open a command prompt in the fix-svn-history directory
 * Compile the application
 mvn clean package
 * Run the application
 java -jar target/osmosis-svn-to-git*.jar
-* Kick back and wait a very long time.
+* Kick back and wait a very long time (much faster if SVN is already mirrored, but still approx 30 minutes)
+* Enjoy the GIT repository in data/target.git
+
+**** Use GIT to Join History (git-join-history) ****
+To run the application perform the following steps:
+* Open a command prompt in the git-join-history directory
+* Mirror the SVN repositories
+./get_repositories.sh
+* Run the GIT migration
+./migrate_to_git.sh
+* Kick back and wait a very long time (only takes minutes if SVN is already mirrored)
+* Enjoy the GIT repository in data/target.git
 
 Note that the above process generates a local replica of both the OSM (Open Street Map) and bretth.com/repos/main repositories.  The process can be sped up tremendously if you already have a local replica of these repositories by copying your replica(s) into the data sub-directory as osm-sync and bhmain-sync respectively.
 

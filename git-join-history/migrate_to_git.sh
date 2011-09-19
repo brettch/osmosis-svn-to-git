@@ -22,7 +22,7 @@ USERS_FILE=`pwd`/../users.txt
 echo "${USERS_FILE}"
 
 cd data
-if false; then
+
 rm -rf *.git
 
 # Retrieve the conduit part of the repo which existed up to revision 471
@@ -59,8 +59,6 @@ cd osmstdlayout.git
 git svn init -s file://`pwd`/../osm-sync/applications/utils/osmosis
 git svn fetch -r12412:HEAD -A "${USERS_FILE}"
 cd ..
-
-fi
 
 # Create a target repository and add remotes to the other repos.
 rm -rf target.git

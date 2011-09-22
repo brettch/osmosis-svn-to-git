@@ -111,7 +111,7 @@ rm .git/info/grafts
 git checkout master
 fi
 cd ..
-exit 0
+
 # Retrieve the part of the repo which existed without trunk/tags/branches from revisions 4743 to 12410, and name it "osmsimple"
 mkdir osmsimple.git
 cd osmsimple.git

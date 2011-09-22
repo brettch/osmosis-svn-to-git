@@ -33,6 +33,26 @@ branch_svn_branches_to_local() {
 }
 
 
+branch_svn_branches_to_target() {
+	git for-each-ref --format='%(refname)' 'refs/remotes/svntags/*' | while read TAG_REFERENCE; do
+		echo "Processing tag reference: ${TAG_REFERENCE}"
+		# Get the bare tag name from the complete reference path
+		TAG_NAME=${TAG_REFERENCE#refs/remotes/svntags/}
+		echo TAG_NAME: $TAG_NAME
+
+		git branch svntags/${TAG_NAME} $TAG_REFERENCE
+	done
+	git for-each-ref --format='%(refname)' 'refs/remotes/svnbranches/*' | while read BRANCH_REFERENCE; do
+		echo "Processing branch reference: ${BRANCH_REFERENCE}"
+		# Get the bare branch name from the complete reference path
+		BRANCH_NAME=${BRANCH_REFERENCE#refs/remotes/svnbranches/}
+		echo BRANCH_NAME: $BRANCH_NAME
+
+		git branch svnbranches/${BRANCH_NAME} $BRANCH_REFERENCE
+	done
+}
+
+
 graft_branches() {
 	local PARENT=$1
 	local CHILD=$2
@@ -154,6 +174,9 @@ git fetch bhsimple
 git fetch bhstdlayout
 git fetch osmsimple
 git fetch osmstdlayout
+
+# Create local branches of all remote svn branches and tags
+branch_svn_branches_to_target
 
 # Graft the branches together.
 graft_branches conduit/master bhsimple/master

@@ -225,6 +225,9 @@ echo "`git log --grep="^Merged in JPF support from the jpf-plugin branch.$" --fo
 # Remove the now obsolete branch.
 git branch -d svnbranches/jpf-plugin
 
+# The breakup branch has full svn:mergeinfo history and has no outstanding changes on the branch.
+git branch -d svnbranches/breakup
+
 # Re-build the history based on the grafts file.
 rewrite_branches
 rm .git/info/grafts

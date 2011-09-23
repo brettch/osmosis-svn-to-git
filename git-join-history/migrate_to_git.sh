@@ -71,8 +71,17 @@ graft_branches() {
 
 rewrite_branches() {
 	git branch | while read BRANCH; do
+		if [ "${BRANCH}" = "* master" ]; then
+			BRANCH="master"
+		fi
+		echo "Re-writing branch ${BRANCH}"
+
 		git checkout "$BRANCH"
 		git filter-branch
+		# Remove the backups of the updated references.
+		# If you don't do this the subsequent loop will fail when it finds a reference backup already existing.
+		# In addition, we will never need the original references again.
+		rm -rf .git/refs/original
 	done
 	git checkout master
 }
@@ -193,7 +202,7 @@ graft_branches svntrunks/bhstdlayout svntrunks/osmsimple
 graft_branches svntrunks/osmsimple svntrunks/osmstdlayout
 
 # Build master off the last branch.
-git branch master osmstdlayout/master
+git branch master svntrunks/osmstdlayout
 git checkout
 
 # Re-build the history based on the grafts file.

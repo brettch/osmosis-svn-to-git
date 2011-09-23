@@ -216,6 +216,11 @@ echo "`git log --grep="^Merged the latest changes from trunk.$" --format=%H svnb
 # The merge point to trunk is missing because no svn:mergeinfo data is available (perhaps occurred prior to SVN version 1.5)
 echo "`git log --grep="^Updated the build scripts to use Ivy dependency management.$" --format=%H` `git log --grep="^Merged in JPF support from the jpf-plugin branch.$" --format=%H` `git log --grep="^Updated the junit tests not to fork during execution.$" --format=%H svnbranches/ivybuild`" >> .git/info/grafts
 
+# The jpf-plugin branch was created three times before getting it right.  Git shows this as an initial branch followed by two merges which isn't really correct.  Update the final branch point to have a single parent in the trunk.
+echo "`git log --grep="^Created a jpf-plugin branch from a (hopefully) clean and latest version of trunk.$" --format=%H svnbranches/jpf-plugin` `git log --grep="^Removed the accidental checkin of JPF code to trunk after some epic svn mishaps ... hopefully this is the last of it.$" --format=%H`" >> .git/info/grafts
+# The jpf-plugin merge to trunk is missing because no svn:mergeinfo is available (perhaps occurred prior to SVN version 1.5)
+echo "`git log --grep="^Merged in JPF support from the jpf-plugin branch.$" --format=%H` `git log --grep="^Removed the accidental checkin of JPF code to trunk after some epic svn mishaps ... hopefully this is the last of it.$" --format=%H` `git log --grep="^Moved the core plugin registration into a separate method.$" --format=%H svnbranches/jpf-plugin`" >> .git/info/grafts
+
 # Re-build the history based on the grafts file.
 rewrite_branches
 rm .git/info/grafts

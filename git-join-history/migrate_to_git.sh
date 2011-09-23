@@ -115,7 +115,6 @@ rm -rf *.git
 # Tag 0.35.1 was re-tagged to fix the version number in ant and update changes.txt.
 # Filter all branches to re-write according to grafts and remove grafts.
 
-
 # Retrieve the conduit part of the repo which existed up to revision 471
 mkdir conduit.git
 cd conduit.git
@@ -186,6 +185,11 @@ graft_branches svntrunks/osmsimple svntrunks/osmstdlayout
 git branch master svntrunks/osmstdlayout
 git checkout
 
+# Remove old range trunks because we now have complete history in master
+git branch | grep "svntrunks/" | while read TRUNK; do
+	git branch -d "${TRUNK}"
+done
+
 # Tag 0.4 was re-tagged and the parent commit of the final tag shows up as being the initial tag.
 # Reset the parent of the tag to be the correct trunk revision.
 echo "`git rev-parse refs/heads/svntags/0.4` `git rev-parse ":/Fixed the osmosis launch script to reflect the updated mysql jar file."`" >> .git/info/grafts
@@ -204,4 +208,7 @@ echo "`git rev-parse refs/heads/svntags/0.35.1` `git rev-parse ":/Updated change
 # Re-build the history based on the grafts file.
 rewrite_branches
 rm .git/info/grafts
+
+# Prune all unnecessary data from the repository.
+git gc --prune=now
 

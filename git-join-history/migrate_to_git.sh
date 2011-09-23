@@ -205,6 +205,15 @@ echo "`git rev-parse refs/heads/svntags/0.29` `git log --grep="^Updated to versi
 # Tag 0.35.1 was re-tagged to fix the version number in ant and update changes.txt.
 echo "`git rev-parse refs/heads/svntags/0.35.1` `git rev-parse ":/Updated changes.txt with the fixes applied in this version."`" >> .git/info/grafts
 
+# The ivybuild branch is missing its trunk parent
+# The branch point is missing because the branch revision was the one that did the organisation into trunk/tags/branches and we've dropped
+# that revision because it's a transition point between ranges and can't be represented properly.  We need to pick the revision prior which
+# contains identical code.
+echo "`git log --grep="^Create a new branch for experimenting with an ivy based build.$" --format=%H svnbranches/ivybuild` `git log --grep="^Updated mysql 0.5 and 0.6 schema versions to 17 and 24 respectively.$" --format=%H`" >> .git/info/grafts
+# The ivybuild branch is missing its merge point back to trunk.
+# The merge point to trunk is missing because no svn:mergeinfo data is available (perhaps occurred prior to SVN version 1.5)
+echo "`git log --grep="^Updated the build scripts to use Ivy dependency management.$" --format=%H` `git log --grep="^Merged in JPF support from the jpf-plugin branch.$" --format=%H` `git log --grep="^Updated the junit tests not to fork during execution.$" --format=%H svnbranches/ivybuild`" >> .git/info/grafts
+
 # Re-build the history based on the grafts file.
 rewrite_branches
 rm .git/info/grafts

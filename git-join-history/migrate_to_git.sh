@@ -234,6 +234,9 @@ git branch -d svnbranches/mutable
 # The breakup branch has full svn:mergeinfo history and has no outstanding changes on the branch.
 git branch -d svnbranches/breakup
 
+# The write-dataset branch was never used therefore has no data to graft back to trunk.
+git branch -d svnbranches/write-dataset
+
 # Re-build the history based on the grafts file.
 rewrite_branches
 rm .git/info/grafts

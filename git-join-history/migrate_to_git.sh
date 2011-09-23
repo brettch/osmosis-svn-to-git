@@ -34,9 +34,10 @@ branch_svn_branches_to_local() {
 
 
 branch_svn_branches_to_target() {
-	git branch -r | grep "master$" | while read REMOTE_BRANCH; do
+	git branch -r | grep "/master$" | while read REMOTE_BRANCH; do
 		echo "Creating local branch for remote svn trunk branch: ${REMOTE_BRANCH}"
-		git branch "${REMOTE_BRANCH}" "remotes/${REMOTE_BRANCH}"
+		REMOTE_NAME=$(echo -n "${REMOTE_BRANCH}" | cut -d "/" -f 1)
+		echo git branch "svntrunks/${REMOTE_NAME}" "remotes/${REMOTE_BRANCH}"
 	done
 	git branch -r | grep "/svntags/" | while read REMOTE_BRANCH; do
 		echo "Creating local branch for remote svn tag branch: ${REMOTE_BRANCH}"

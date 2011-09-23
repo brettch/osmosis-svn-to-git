@@ -138,15 +138,6 @@ cd bhstdlayout.git
 git svn init -s file://`pwd`/../bhmain-sync/osmosis
 git svn fetch -r476:HEAD -A "${USERS_FILE}"
 branch_svn_branches_to_local
-if false; then
-# Tag 0.4 was re-tagged and the parent commit of the final tag shows up as being the initial tag.
-# Reset the parent of the tag to be the correct trunk revision.
-echo "`git rev-parse refs/heads/svntags/0.4` `git rev-parse ":/Fixed the osmosis launch script to reflect the updated mysql jar file."`" >> .git/info/grafts
-git checkout svntags/0.4
-git filter-branch
-rm .git/info/grafts
-git checkout master
-fi
 cd ..
 
 # Retrieve the part of the repo which existed without trunk/tags/branches from revisions 4743 to 12410, and name it "osmsimple"
@@ -163,16 +154,6 @@ cd osmstdlayout.git
 git svn init -s file://`pwd`/../osm-sync/applications/utils/osmosis
 git svn fetch -r12412:HEAD -A "${USERS_FILE}"
 branch_svn_branches_to_local
-if false; then
-# Tag 0.28 is missing its parent because it doesn't exist in this repository, we need to graft it in the final repository. (TODO: Fix in final repository)
-# Tag 0.32 was modified after creation to fix an artefact version in the maven POM.  That can't be changed now.
-# Tag 0.35.1 was re-tagged to fix the version number in ant and update changes.txt.
-echo "`git rev-parse refs/heads/svntags/0.35.1` `git rev-parse ":/Updated changes.txt with the fixes applied in this version."`" >> .git/info/grafts
-git checkout svntags/0.35.1
-git filter-branch
-rm .git/info/grafts
-git checkout master
-fi
 cd ..
 
 # Create a target repository and add remotes to the other repos.
@@ -195,7 +176,7 @@ git fetch osmstdlayout
 # Create local branches of all remote svn branches and tags
 branch_svn_branches_to_target
 
-# Graft the branches together.
+# Graft the trunk ranges together.
 graft_branches svntrunks/conduit svntrunks/bhsimple
 graft_branches svntrunks/bhsimple svntrunks/bhstdlayout
 graft_branches svntrunks/bhstdlayout svntrunks/osmsimple
@@ -204,6 +185,21 @@ graft_branches svntrunks/osmsimple svntrunks/osmstdlayout
 # Build master off the last branch.
 git branch master svntrunks/osmstdlayout
 git checkout
+
+# Tag 0.4 was re-tagged and the parent commit of the final tag shows up as being the initial tag.
+# Reset the parent of the tag to be the correct trunk revision.
+echo "`git rev-parse refs/heads/svntags/0.4` `git rev-parse ":/Fixed the osmosis launch script to reflect the updated mysql jar file."`" >> .git/info/grafts
+
+# Tag 0.28 is missing its parent because the parent doesn't exist in the bhstdlayout repository.  It was tagged after the fact, and the
+# trunk revision was in the osmsimple repo.
+echo "`git rev-parse refs/heads/svntags/0.28` `git log --grep="^Updated the version to 0.28.$" --format=%H`" >> .git/info/grafts
+
+# As above but for 0.29.
+echo "`git rev-parse refs/heads/svntags/0.29` `git log --grep="^Updated to version 0.29.$" --format=%H`" >> .git/info/grafts
+
+# Tag 0.32 was modified after creation to fix an artefact version in the maven POM.  That can't be changed now.
+# Tag 0.35.1 was re-tagged to fix the version number in ant and update changes.txt.
+echo "`git rev-parse refs/heads/svntags/0.35.1` `git rev-parse ":/Updated changes.txt with the fixes applied in this version."`" >> .git/info/grafts
 
 # Re-build the history based on the grafts file.
 rewrite_branches

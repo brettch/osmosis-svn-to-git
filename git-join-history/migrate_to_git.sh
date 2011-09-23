@@ -178,10 +178,10 @@ git fetch osmstdlayout
 branch_svn_branches_to_target
 
 # Graft the branches together.
-graft_branches conduit/master bhsimple/master
-graft_branches bhsimple/master bhstdlayout/master
-graft_branches bhstdlayout/master osmsimple/master
-graft_branches osmsimple/master osmstdlayout/master
+graft_branches svntrunks/conduit svntrunks/bhsimple
+graft_branches svntrunks/bhsimple svntrunks/bhstdlayout
+graft_branches svntrunks/bhstdlayout svntrunks/osmsimple
+graft_branches svntrunks/osmsimple svntrunks/osmstdlayout
 
 # Build master off the last branch.
 git branch master osmstdlayout/master

@@ -237,6 +237,9 @@ git branch -d svnbranches/breakup
 # The write-dataset branch was never used therefore has no data to graft back to trunk.
 git branch -d svnbranches/write-dataset
 
+# The 0.35-fixes branch was branched from an older trunk, then specific fixes from trunk merged into it.  No changes were ever merged back to trunk.
+git branch -d svnbranches/0.35-fixes
+
 # Re-build the history based on the grafts file.
 rewrite_branches
 rm .git/info/grafts

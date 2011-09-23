@@ -225,6 +225,12 @@ echo "`git log --grep="^Merged in JPF support from the jpf-plugin branch.$" --fo
 # Remove the now obsolete branch.
 git branch -d svnbranches/jpf-plugin
 
+# The mutable branch is missing its merge point back to trunk.
+# The merge point to trunk is missing because no svn:mergeinfo data is available (perhaps occurred prior to SVN version 1.5)
+echo "`git log --grep="^Introduced mutable entity support.  Entities can now be modified within the pipeline without requiring cloning.$" --format=%H` `git log --grep="^Explicitly depend on version 3.2.8 of the Woodstox stax xml parser in order to fix broken build.$" --format=%H` `git log --grep="^Fixed remaining tasks and tests to no longer use the builder classes.$" --format=%H svnbranches/mutable`" >> .git/info/grafts
+# Remove the now obsolete branch.
+git branch -d svnbranches/mutable
+
 # The breakup branch has full svn:mergeinfo history and has no outstanding changes on the branch.
 git branch -d svnbranches/breakup
 

@@ -210,6 +210,8 @@ echo "`git rev-parse refs/heads/svntags/0.35.1` `git rev-parse ":/Updated change
 # that revision because it's a transition point between ranges and can't be represented properly.  We need to pick the revision prior which
 # contains identical code.
 echo "`git log --grep="^Create a new branch for experimenting with an ivy based build.$" --format=%H svnbranches/ivybuild` `git log --grep="^Updated mysql 0.5 and 0.6 schema versions to 17 and 24 respectively.$" --format=%H`" >> .git/info/grafts
+# The ivybuild branch is missing a rebase merge from trunk because no svn:mergeinfo data is available (perhaps occurred prior to SVN version 1.5)
+echo "`git log --grep="^Merged the latest changes from trunk.$" --format=%H svnbranches/ivybuild` `git log --grep="^Removed jars from the repository.$" --format=%H svnbranches/ivybuild` `git log --grep="^Added new svn:ignore values.$" --format=%H`" >> .git/info/grafts
 # The ivybuild branch is missing its merge point back to trunk.
 # The merge point to trunk is missing because no svn:mergeinfo data is available (perhaps occurred prior to SVN version 1.5)
 echo "`git log --grep="^Updated the build scripts to use Ivy dependency management.$" --format=%H` `git log --grep="^Merged in JPF support from the jpf-plugin branch.$" --format=%H` `git log --grep="^Updated the junit tests not to fork during execution.$" --format=%H svnbranches/ivybuild`" >> .git/info/grafts

@@ -69,6 +69,15 @@ graft_branches() {
 }
 
 
+rewrite_branches() {
+	git branch | while read BRANCH; do
+		git checkout "$BRANCH"
+		git filter-branch
+	done
+	git checkout master
+}
+
+
 USERS_FILE=`pwd`/../users.txt
 echo "${USERS_FILE}"
 
@@ -188,6 +197,6 @@ git branch master osmstdlayout/master
 git checkout
 
 # Re-build the history based on the grafts file.
-git filter-branch
+rewrite_branches
 rm .git/info/grafts
 

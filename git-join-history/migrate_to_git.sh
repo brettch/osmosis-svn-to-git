@@ -34,21 +34,19 @@ branch_svn_branches_to_local() {
 
 
 branch_svn_branches_to_target() {
-	git for-each-ref --format='%(refname)' 'refs/remotes/svntags/*' | while read TAG_REFERENCE; do
-		echo "Processing tag reference: ${TAG_REFERENCE}"
-		# Get the bare tag name from the complete reference path
-		TAG_NAME=${TAG_REFERENCE#refs/remotes/svntags/}
-		echo TAG_NAME: $TAG_NAME
-
-		git branch svntags/${TAG_NAME} $TAG_REFERENCE
+	git branch -r | grep "master$" | while read REMOTE_BRANCH; do
+		echo "Creating local branch for remote svn trunk branch: ${REMOTE_BRANCH}"
+		git branch "${REMOTE_BRANCH}" "remotes/${REMOTE_BRANCH}"
 	done
-	git for-each-ref --format='%(refname)' 'refs/remotes/svnbranches/*' | while read BRANCH_REFERENCE; do
-		echo "Processing branch reference: ${BRANCH_REFERENCE}"
-		# Get the bare branch name from the complete reference path
-		BRANCH_NAME=${BRANCH_REFERENCE#refs/remotes/svnbranches/}
-		echo BRANCH_NAME: $BRANCH_NAME
-
-		git branch svnbranches/${BRANCH_NAME} $BRANCH_REFERENCE
+	git branch -r | grep "/svntags/" | while read REMOTE_BRANCH; do
+		echo "Creating local branch for remote svn tag branch: ${REMOTE_BRANCH}"
+		TAG_NAME=$(echo -n "${REMOTE_BRANCH}" | cut -d "/" -f 3)
+		git branch "svntags/${TAG_NAME}" "remotes/${REMOTE_BRANCH}"
+	done
+	git branch -r | grep "/svnbranches/" | while read REMOTE_BRANCH; do
+		echo "Creating local branch for remote svn branch branch: ${REMOTE_BRANCH}"
+		BRANCH_NAME=$(echo -n "${REMOTE_BRANCH}" | cut -d "/" -f 3)
+		git branch "svnbranches/${BRANCH_NAME}" "remotes/${REMOTE_BRANCH}"
 	done
 }
 
@@ -88,7 +86,7 @@ rm -rf *.git
 # * Create remotes
 # * Fetch each remote
 # Create local branches for all remote svn branches and tags.
-# Latest range should be the current master.
+# Checkout latest range master as the current master.
 # Graft the various ranges together on the master line.
 # Filter all branches to re-write according to grafts and remove grafts.
 # Create grafts to fix broken tags.

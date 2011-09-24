@@ -52,5 +52,8 @@ git for-each-ref --format='%(refname)' 'refs/heads/svntags/*' | while read TAG_R
 			GIT_COMMITTER_EMAIL="$( git show -s --pretty='format:%ae' "$TAG_REFERENCE" )" \
 			GIT_COMMITTER_DATE="$(  git show -s --pretty='format:%ad' "$TAG_REFERENCE" )" \
 		git tag -a -F - "$TAG_NAME" "$TARGET_REFERENCE"
+
+	# Remove the now redundant tag branch.
+	git update-ref -d "$TAG_REFERENCE"
 done
 

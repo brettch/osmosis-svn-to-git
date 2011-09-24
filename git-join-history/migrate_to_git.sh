@@ -202,8 +202,12 @@ echo "`git rev-parse refs/heads/svntags/0.28` `git log --grep="^Updated the vers
 echo "`git rev-parse refs/heads/svntags/0.29` `git log --grep="^Updated to version 0.29.$" --format=%H`" >> .git/info/grafts
 
 # Tag 0.32 was modified after creation to fix an artefact version in the maven POM.  That can't be changed now.
+
 # Tag 0.35.1 was re-tagged to fix the version number in ant and update changes.txt.
 echo "`git rev-parse refs/heads/svntags/0.35.1` `git rev-parse ":/Updated changes.txt with the fixes applied in this version."`" >> .git/info/grafts
+
+# Tag test was created and deleted straight away in SVN.  No longer required.
+git branch -D svntags/test
 
 # The ivybuild branch is missing its trunk parent
 # The branch point is missing because the branch revision was the one that did the organisation into trunk/tags/branches and we've dropped

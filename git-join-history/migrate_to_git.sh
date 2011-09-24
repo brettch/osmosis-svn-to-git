@@ -146,7 +146,7 @@ rm -rf *.git
 # Retrieve the conduit part of the repo which existed up to revision 471
 mkdir conduit.git
 cd conduit.git
-git svn init file://`pwd`/../bhmain-sync/conduit
+git svn init --no-metadata file://`pwd`/../bhmain-sync/conduit
 git svn fetch -r417:471 -A "${USERS_FILE}"
 branch_svn_branches_to_local
 cd ..
@@ -154,7 +154,7 @@ cd ..
 # Retrieve the osmosis part of the repo which existed without trunk/tags/branches from revisions 427 to 474, and name it "bhsimple"
 mkdir bhsimple.git
 cd bhsimple.git
-git svn init file://`pwd`/../bhmain-sync/osmosis
+git svn init --no-metadata file://`pwd`/../bhmain-sync/osmosis
 git svn fetch -r473:474 -A "${USERS_FILE}"
 branch_svn_branches_to_local
 cd ..
@@ -162,7 +162,7 @@ cd ..
 # Retrieve the osmosis part of the repo which existed with trunk/tags/branches from revisions 476 to HEAD, and name it "bhstdlayout"
 mkdir bhstdlayout.git
 cd bhstdlayout.git
-git svn init -s file://`pwd`/../bhmain-sync/osmosis
+git svn init --no-metadata -s file://`pwd`/../bhmain-sync/osmosis
 git svn fetch -r476:HEAD -A "${USERS_FILE}"
 branch_svn_branches_to_local
 cd ..
@@ -170,7 +170,7 @@ cd ..
 # Retrieve the part of the repo which existed without trunk/tags/branches from revisions 4743 to 12410, and name it "osmsimple"
 mkdir osmsimple.git
 cd osmsimple.git
-git svn init file://`pwd`/../osm-sync/applications/utils/osmosis
+git svn init --no-metadata file://`pwd`/../osm-sync/applications/utils/osmosis
 git svn fetch -r4743:12410 -A "${USERS_FILE}"
 branch_svn_branches_to_local
 cd ..
@@ -178,7 +178,7 @@ cd ..
 # Retrieve the part of the repo which existed with trunk/tags/branches from revisions 12412 to HEAD, and name it "osmstdlayout"
 mkdir osmstdlayout.git
 cd osmstdlayout.git
-git svn init -s file://`pwd`/../osm-sync/applications/utils/osmosis
+git svn init --no-metadata -s file://`pwd`/../osm-sync/applications/utils/osmosis
 git svn fetch -r12412:HEAD -A "${USERS_FILE}"
 branch_svn_branches_to_local
 cd ..

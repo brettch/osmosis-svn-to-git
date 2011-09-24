@@ -223,6 +223,13 @@ git fetch osmstdlayout
 # Create local branches of all remote svn branches and tags
 branch_svn_branches_to_target
 
+# Remove the remotes which are unnecessary now that we have local branches.
+git remote rm conduit
+git remote rm bhsimple
+git remote rm bhstdlayout
+git remote rm osmsimple
+git remote rm osmstdlayout
+
 # Graft the trunk ranges together.
 graft_branches svntrunks/conduit svntrunks/bhsimple
 graft_branches svntrunks/bhsimple svntrunks/bhstdlayout

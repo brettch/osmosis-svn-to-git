@@ -140,28 +140,8 @@ echo "${USERS_FILE}"
 
 cd data
 
+# Remove all git repositories created by a previous run of the script.
 rm -rf *.git
-
-# Clone each time range into its own git repo.
-# Clone all svn tags into local branches so they're visible as remotes in the target repo.
-# * Convert refs/remotes/tags/<tag> into svntags/<tag>
-# Clone all svn branches into local branches so they're visible as remotes in the target repo.
-# * Convert refs/remotes/<branch> into svnbranches/<branch>
-# * Ignore refs/remotes/git-svn (flat repo) and refs/remotes/trunk (structured repo) which are already created as the local master branch
-
-# Create a target repo with remotes pointing at the range repos.
-# * Create remotes
-# * Fetch each remote
-# Create local branches for all remote svn branches and tags.
-# Checkout latest range master as the current master.
-# Graft the various ranges together on the master line.
-# Filter all branches to re-write according to grafts and remove grafts.
-# Create grafts to fix broken tags.
-# * Tag 0.4 was re-tagged and the parent commit of the final tag shows up as being the initial tag.  Reset the parent of the tag to be the correct trunk revision.
-# Tag 0.28 is missing its parent because it was copied from a revision that didn't exist in the range repository it originated from (ie. copied from trunk in an earlier range).
-# Tag 0.32 was modified after creation to fix an artefact version in the maven POM.  That can't be changed now.
-# Tag 0.35.1 was re-tagged to fix the version number in ant and update changes.txt.
-# Filter all branches to re-write according to grafts and remove grafts.
 
 # Retrieve the conduit part of the repo which existed up to revision 471
 mkdir conduit.git

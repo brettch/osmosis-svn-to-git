@@ -255,29 +255,29 @@ echo "`git log --grep="^Merged the latest changes from trunk.$" --format=%H svnb
 # The merge point to trunk is missing because no svn:mergeinfo data is available (perhaps occurred prior to SVN version 1.5)
 echo "`git log --grep="^Updated the build scripts to use Ivy dependency management.$" --format=%H` `git log --grep="^Merged in JPF support from the jpf-plugin branch.$" --format=%H` `git log --grep="^Updated the junit tests not to fork during execution.$" --format=%H svnbranches/ivybuild`" >> .git/info/grafts
 # Remove the now obsolete branch.
-git branch -d svnbranches/ivybuild
+git branch -D svnbranches/ivybuild
 
 # The jpf-plugin branch was created three times before getting it right.  Git shows this as an initial branch followed by two merges which isn't really correct.  Update the final branch point to have a single parent in the trunk.
 echo "`git log --grep="^Created a jpf-plugin branch from a (hopefully) clean and latest version of trunk.$" --format=%H svnbranches/jpf-plugin` `git log --grep="^Removed the accidental checkin of JPF code to trunk after some epic svn mishaps ... hopefully this is the last of it.$" --format=%H`" >> .git/info/grafts
 # The jpf-plugin merge to trunk is missing because no svn:mergeinfo is available (perhaps occurred prior to SVN version 1.5)
 echo "`git log --grep="^Merged in JPF support from the jpf-plugin branch.$" --format=%H` `git log --grep="^Removed the accidental checkin of JPF code to trunk after some epic svn mishaps ... hopefully this is the last of it.$" --format=%H` `git log --grep="^Moved the core plugin registration into a separate method.$" --format=%H svnbranches/jpf-plugin`" >> .git/info/grafts
 # Remove the now obsolete branch.
-git branch -d svnbranches/jpf-plugin
+git branch -D svnbranches/jpf-plugin
 
 # The mutable branch is missing its merge point back to trunk.
 # The merge point to trunk is missing because no svn:mergeinfo data is available (perhaps occurred prior to SVN version 1.5)
 echo "`git log --grep="^Introduced mutable entity support.  Entities can now be modified within the pipeline without requiring cloning.$" --format=%H` `git log --grep="^Explicitly depend on version 3.2.8 of the Woodstox stax xml parser in order to fix broken build.$" --format=%H` `git log --grep="^Fixed remaining tasks and tests to no longer use the builder classes.$" --format=%H svnbranches/mutable`" >> .git/info/grafts
 # Remove the now obsolete branch.
-git branch -d svnbranches/mutable
+git branch -D svnbranches/mutable
 
 # The breakup branch has full svn:mergeinfo history and has no outstanding changes on the branch.
-git branch -d svnbranches/breakup
+git branch -D svnbranches/breakup
 
 # The write-dataset branch was never used therefore has no data to graft back to trunk.
-git branch -d svnbranches/write-dataset
+git branch -D svnbranches/write-dataset
 
 # The 0.35-fixes branch was branched from an older trunk, then specific fixes from trunk merged into it.  No changes were ever merged back to trunk.
-git branch -d svnbranches/0.35-fixes
+git branch -D svnbranches/0.35-fixes
 
 # Re-build the history based on the grafts file.
 rewrite_branches

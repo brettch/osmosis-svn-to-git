@@ -179,7 +179,7 @@ cd ..
 mkdir osmstdlayout.git
 cd osmstdlayout.git
 git svn init --no-metadata -s file://`pwd`/../osm-sync/applications/utils/osmosis
-git svn fetch -r12412:HEAD -A "${USERS_FILE}"
+git svn fetch -r12412:26690 -A "${USERS_FILE}"
 branch_svn_branches_to_local
 cd ..
 
